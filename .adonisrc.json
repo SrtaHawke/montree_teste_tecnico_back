@@ -1,0 +1,23 @@
+{
+  "typescript": true,
+  "commands": [
+    "@adonisjs/core/build/commands",
+    "@adonisjs/lucid/build/commands"
+  ],
+  "preloads": [
+    "./start/routes"
+  ],
+  "providers": [
+    "@adonisjs/core",
+    "@adonisjs/repl",
+    "@adonisjs/lucid",
+    "@adonisjs/bodyparser",
+    "./providers/AppProvider"
+  ],
+  "aliases": {
+    "App": "app",
+    "Config": "config",
+    "Database": "database",
+    "Contracts": "contracts"
+  }
+}
