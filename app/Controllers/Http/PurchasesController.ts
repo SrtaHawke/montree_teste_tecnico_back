@@ -1,7 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Purchase from 'App/Models/Purchase'
 import PurchaseService from 'App/Services/PurchaseService'
-// import CreatePurchaseValidator from 'App/Validators/CreatePurchaseValidator'
 
 export default class PurchasesController {
   private purchaseService = new PurchaseService()
@@ -14,21 +13,19 @@ export default class PurchasesController {
 
   public async store({ request, response }: HttpContextContract) {
     try {
-      const body = request.all()
-      const itemId = body.item_id
+      const itemId = Number(request.input('item_id'))
 
-      if (!itemId) {
+      if (!itemId || Number.isNaN(itemId)) {
         return response.badRequest({
-          message: 'item_id é obrigatório.',
-          body,
+          message: 'item_id é obrigatório e deve ser numérico.',
         })
       }
 
-      const purchase = await this.purchaseService.create(Number(itemId))
+      const purchase = await this.purchaseService.create(itemId)
 
       return response.created(purchase)
     } catch (error) {
-      return response.badRequest({
+      return response.status(error.status || 400).send({
         message: error.message || 'Erro ao criar compra.',
       })
     }

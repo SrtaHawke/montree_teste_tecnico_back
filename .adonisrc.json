@@ -5,6 +5,7 @@
     "@adonisjs/lucid/build/commands"
   ],
   "preloads": [
+    "./start/kernel",
     "./start/routes"
   ],
   "providers": [
